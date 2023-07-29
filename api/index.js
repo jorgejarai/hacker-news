@@ -1,6 +1,6 @@
 const express = require('express');
 
-const fetchArticles = require('../lib/fetchArticles');
+const fetchArticles = require('./fetchArticles');
 
 const app = express();
 
