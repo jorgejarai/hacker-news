@@ -22,7 +22,7 @@ const fetchArticles = async (options) => {
     );
     const data = await res.json();
 
-    const isNextPage = data.nbPages > page + 1;
+    const pageCount = data.nbPages;
 
     let hits = data.hits;
 
@@ -42,7 +42,7 @@ const fetchArticles = async (options) => {
     return {
       success: true,
       hits,
-      isNextPage,
+      pageCount,
     };
   } catch (error) {
     return {

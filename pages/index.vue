@@ -17,6 +17,12 @@
           :created-at="article.createdAt"
         />
       </v-row>
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+        total-visible="10"
+        class="mt-4"
+      ></v-pagination>
     </v-col>
     <v-col v-else>
       <v-alert type="error">Error fetching articles</v-alert>
@@ -32,7 +38,15 @@ export default {
       articles: [],
       loading: true,
       error: false,
+      page: 1,
+      pageCount: 0,
     };
+  },
+  watch: {
+    page() {
+      this.loading = true;
+      this.fetchPage();
+    },
   },
   mounted() {
     this.fetchPage();
@@ -40,10 +54,13 @@ export default {
   methods: {
     async fetchPage() {
       try {
-        const res = await fetch('http://localhost:3000/api/stories');
+        const res = await fetch(
+          `http://localhost:3000/api/stories?page=${this.page - 1}`,
+        );
         const response = await res.json();
 
         this.articles = response.hits;
+        this.pageCount = response.pageCount;
         this.loading = false;
       } catch (err) {
         this.error = true;
