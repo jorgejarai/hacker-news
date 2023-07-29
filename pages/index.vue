@@ -15,6 +15,8 @@
           :author="article.author"
           :story-url="article.storyUrl"
           :created-at="article.createdAt"
+          :comment-text="article.commentText"
+          :tags="article.tags"
         />
       </v-row>
       <v-pagination
