@@ -40,6 +40,9 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
+            <v-btn v-if="storyUrl" color="primary" text @click="goToStoryUrl"
+              >Visit page</v-btn
+            >
             <v-btn color="primary" text @click="reveal = false">OK</v-btn>
           </v-card-actions>
         </v-card>
@@ -92,6 +95,11 @@ export default {
         dateStyle: 'full',
         timeStyle: 'long',
       });
+    },
+  },
+  methods: {
+    goToStoryUrl() {
+      window.open(this.storyUrl, '_blank');
     },
   },
 };
