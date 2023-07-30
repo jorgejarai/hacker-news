@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="4" class="mx-4 my-4" style="width: 100%; max-width: 600px">
+  <v-card elevation="4" class="ma-4" style="width: 100%; max-width: 600px">
     <v-card-text>
       <span class="text-h5 text--primary">
         {{ title }}
@@ -11,7 +11,7 @@
     </v-card-text>
     <v-card-actions>
       <v-dialog v-model="reveal" width="600">
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-btn plain color="accent-4" v-bind="attrs" v-on="on">
             Learn more
           </v-btn>
@@ -24,7 +24,7 @@
 
           <v-card-text>
             <p>By {{ author }} - {{ timeSinceCreation }}</p>
-            <v-chip class="mr-2" v-for="tag in tags" :key="tag">{{
+            <v-chip v-for="tag in tags" :key="tag" class="mr-2">{{
               tag
             }}</v-chip>
             <p class="mt-4" v-html="commentText"></p>
@@ -47,22 +47,40 @@ import timeDifference from '../lib/timeDifference';
 
 export default {
   props: {
-    title: String,
-    author: String,
-    storyUrl: String,
-    createdAt: String,
-    commentText: String,
-    tags: Array,
-  },
-  computed: {
-    timeSinceCreation() {
-      return timeDifference(new Date(this.createdAt));
+    title: {
+      type: String,
+      default: '',
+    },
+    author: {
+      type: String,
+      default: '',
+    },
+    storyUrl: {
+      type: String,
+      default: '#',
+    },
+    createdAt: {
+      type: String,
+      default: '1970-01-01T00:00:00.000Z',
+    },
+    commentText: {
+      type: String,
+      default: '',
+    },
+    tags: {
+      type: Array,
+      default: () => [],
     },
   },
   data() {
     return {
       reveal: false,
     };
+  },
+  computed: {
+    timeSinceCreation() {
+      return timeDifference(new Date(this.createdAt));
+    },
   },
 };
 </script>
