@@ -9,6 +9,10 @@
   </v-row>
   <v-row v-else justify="center" align="center">
     <v-col v-if="!error">
+      <v-switch
+        v-model="showNoUrlStories"
+        label="Show stories with no URL"
+      ></v-switch>
       <v-row v-for="article in articles" :key="article.id" align="center">
         <NewsArticle
           :title="article.title"
@@ -42,10 +46,15 @@ export default {
       error: false,
       page: 1,
       pageCount: 0,
+      showNoUrlStories: false,
     };
   },
   watch: {
     page() {
+      this.loading = true;
+      this.fetchPage();
+    },
+    showNoUrlStories() {
       this.loading = true;
       this.fetchPage();
     },
@@ -57,7 +66,9 @@ export default {
     async fetchPage() {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/stories?page=${this.page - 1}`,
+          `http://localhost:3000/api/stories?page=${
+            this.page - 1
+          }&showNoUrlStories=${this.showNoUrlStories}`,
         );
         const response = await res.json();
 

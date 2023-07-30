@@ -11,15 +11,15 @@ app.get('/ping', (_req, res) => {
   });
 });
 
-/* Fetch stories from the Hacker News API
- *  Query params:
- *    - page: The page number to fetch (defaults to 0).
- *    - showNoUrlStories: Whether to filter out stories with no URL (defaults to true).
- *    - hitsPerPage: The number of hits per page (defaults to 20)
+/* Fetch stories from the Hacker News API Query params:
+ *    - page (int): The page number to fetch (defaults to 0).
+ *    - showNoUrlStories (boolean): Whether to filter out stories with no URL
+ *      (defaults to true).
+ *    - hitsPerPage (int): The number of hits per page (defaults to 20)
  */
 app.get('/stories', async (req, res) => {
   const page = parseInt(req.query.page, 10) || 0;
-  const showNoUrlStories = !!req.query.showNoUrlStories;
+  const showNoUrlStories = req.query.showNoUrlStories === 'true' || false;
   const hitsPerPage = parseInt(req.query.hitsPerPage, 10) || 20;
 
   const articles = await fetchArticles({
