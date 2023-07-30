@@ -42,15 +42,11 @@ const fetchArticles = async (options) => {
     }));
 
     return {
-      success: true,
       hits,
       pageCount,
     };
   } catch (error) {
-    return {
-      success: false,
-      error: 'Failed to fetch articles',
-    };
+    return null;
   }
 };
 

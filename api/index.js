@@ -1,4 +1,5 @@
 const express = require('express');
+const Joi = require('joi');
 
 const fetchArticles = require('./fetchArticles');
 
@@ -11,6 +12,12 @@ app.get('/ping', (_req, res) => {
   });
 });
 
+const querySchema = Joi.object({
+  page: Joi.number().integer().min(0).default(0),
+  showNoUrlStories: Joi.boolean().default(true),
+  hitsPerPage: Joi.number().integer().min(1).default(20),
+});
+
 /* Fetch stories from the Hacker News API Query params:
  *    - page (int): The page number to fetch (defaults to 0).
  *    - showNoUrlStories (boolean): Whether to filter out stories with no URL
@@ -18,9 +25,19 @@ app.get('/ping', (_req, res) => {
  *    - hitsPerPage (int): The number of hits per page (defaults to 20)
  */
 app.get('/stories', async (req, res) => {
-  const page = parseInt(req.query.page, 10) || 0;
-  const showNoUrlStories = req.query.showNoUrlStories === 'true' || false;
-  const hitsPerPage = parseInt(req.query.hitsPerPage, 10) || 20;
+  const {
+    error,
+    value: { page, showNoUrlStories, hitsPerPage },
+  } = querySchema.validate(req.query, {
+    stripUnknown: true,
+  });
+
+  if (error) {
+    return res.status(400).json({
+      success: false,
+      error: error.message,
+    });
+  }
 
   const articles = await fetchArticles({
     page,
@@ -28,7 +45,17 @@ app.get('/stories', async (req, res) => {
     hitsPerPage,
   });
 
-  res.json(articles);
+  if (!articles) {
+    return res.status(500).json({
+      success: false,
+      error: 'Could not fetch articles',
+    });
+  }
+
+  res.json({
+    success: true,
+    ...articles,
+  });
 });
 
 module.exports = { path: '/api', handler: app };
