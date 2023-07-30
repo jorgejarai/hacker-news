@@ -78,6 +78,10 @@ export default {
         );
         const response = await res.json();
 
+        if (!response.success) {
+          throw new Error(response.error);
+        }
+
         this.articles = response.hits;
         this.pageCount = response.pageCount;
         this.loading = false;
