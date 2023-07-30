@@ -1,6 +1,6 @@
 const axios = require('axios').default;
 
-const API_URL = 'https://hn.algolia.com/api/v1/search_by_date?query=coding';
+const HN_API_URL = 'https://hn.algolia.com/api/v1/search_by_date?query=coding';
 
 /**
  * Fetches articles from the API.
@@ -17,9 +17,12 @@ const fetchArticles = async (options) => {
   const { page = 0, filterNoUrlStories = true, hitsPerPage = 20 } = options;
 
   try {
-    const { data } = await axios.get(
-      `${API_URL}&page=${page}&hitsPerPage=${hitsPerPage}`,
-    );
+    const { data } = await axios.get(HN_API_URL, {
+      params: {
+        page,
+        hitsPerPage,
+      },
+    });
 
     const pageCount = data.nbPages;
 

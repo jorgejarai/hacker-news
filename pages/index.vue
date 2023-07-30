@@ -73,11 +73,13 @@ export default {
   methods: {
     async fetchPage() {
       try {
-        const { data } = await axios.get(
-          `http://localhost:3000/api/stories?page=${
-            this.page - 1
-          }&showNoUrlStories=${this.showNoUrlStories}`,
-        );
+        const { apiBaseUrl } = this.$config;
+        const { data } = await axios.get(apiBaseUrl, {
+          params: {
+            page: this.page,
+            showNoUrlStories: this.showNoUrlStories,
+          },
+        });
 
         if (!data.success) {
           throw new Error(data.error);
