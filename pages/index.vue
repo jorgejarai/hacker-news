@@ -1,39 +1,45 @@
 <template>
-  <v-row v-if="loading" style="height: 100vh" justify="center" align="center">
-    <v-progress-circular
-      indeterminate
-      color="primary"
-      size="64"
-      width="6"
-    ></v-progress-circular>
-  </v-row>
-  <v-row v-else justify="center" align="center">
-    <v-col v-if="!error">
-      <v-switch
-        v-model="showNoUrlStories"
-        label="Show stories with no URL"
-      ></v-switch>
-      <v-row v-for="article in articles" :key="article.id" align="center">
-        <NewsArticle
-          :title="article.title"
-          :author="article.author"
-          :story-url="article.storyUrl"
-          :created-at="article.createdAt"
-          :comment-text="article.commentText"
-          :tags="article.tags"
-        />
-      </v-row>
-      <v-pagination
-        v-model="page"
-        :length="pageCount"
-        total-visible="10"
-        class="mt-4"
-      ></v-pagination>
-    </v-col>
-    <v-col v-else>
-      <v-alert type="error">Error fetching articles</v-alert>
-    </v-col>
-  </v-row>
+  <v-container>
+    <v-row v-if="loading" style="height: 100vh" justify="center" align="center">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        size="64"
+        width="6"
+      ></v-progress-circular>
+    </v-row>
+    <v-row v-else justify="center" align="center">
+      <v-col v-if="!error">
+        <v-row justify="center">
+          <v-switch
+            v-model="showNoUrlStories"
+            label="Show stories with no URL"
+          ></v-switch>
+        </v-row>
+        <v-row v-for="article in articles" :key="article.id" justify="center">
+          <NewsArticle
+            :title="article.title"
+            :author="article.author"
+            :story-url="article.storyUrl"
+            :created-at="article.createdAt"
+            :comment-text="article.commentText"
+            :tags="article.tags"
+          />
+        </v-row>
+        <v-row justify="center">
+          <v-pagination
+            v-model="page"
+            :length="pageCount"
+            total-visible="8"
+            class="ma-4"
+          ></v-pagination>
+        </v-row>
+      </v-col>
+      <v-col v-else>
+        <v-alert type="error">Error fetching articles</v-alert>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
