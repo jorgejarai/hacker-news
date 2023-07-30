@@ -1,10 +1,15 @@
 <template>
   <v-card elevation="4" class="ma-4" style="width: 100%; max-width: 600px">
     <v-card-text>
-      <span class="text-h5 text--primary">
+      <span v-if="!!title" class="text-h5 text--primary">
         {{ title }}
       </span>
-      <p>
+      <span v-else class="text-h5 text--primary">(no title)</span>
+      <p v-if="!!author">
+        By {{ author }} -
+        <span :title="prettyCreatedAt">{{ timeSinceCreation }}</span>
+      </p>
+      <p v-else>
         By {{ author }} -
         <span :title="prettyCreatedAt">{{ timeSinceCreation }}</span>
       </p>
@@ -15,25 +20,31 @@
     <v-card-actions>
       <v-dialog v-model="reveal" width="600">
         <template #activator="{ on, attrs }">
-          <v-btn plain color="accent-4" v-bind="attrs" v-on="on">
+          <v-btn text color="primary" v-bind="attrs" v-on="on">
             Learn more
           </v-btn>
         </template>
 
         <v-card>
-          <v-card-title class="text-h5">
+          <v-card-title v-if="!!title" class="text-h5">
             {{ title }}
           </v-card-title>
+          <v-card-title v-else class="text-h5">(no title)</v-card-title>
 
           <v-card-text>
-            <p>
+            <p v-if="!!author">
+              By {{ author }} -
+              <span :title="prettyCreatedAt">{{ timeSinceCreation }}</span>
+            </p>
+            <p v-else>
               By {{ author }} -
               <span :title="prettyCreatedAt">{{ timeSinceCreation }}</span>
             </p>
             <v-chip v-for="tag in tags" :key="tag" class="mr-2">{{
               tag
             }}</v-chip>
-            <p class="mt-4" v-html="commentText"></p>
+            <p v-if="!!commentText" class="mt-4" v-html="commentText"></p>
+            <p v-else class="mt-4">(no comment)</p>
           </v-card-text>
 
           <v-divider></v-divider>
