@@ -13,7 +13,7 @@
         <v-row justify="center">
           <v-switch
             v-model="showNoUrlStories"
-            label="Show stories with no URL"
+            :label="$t('index.show-no-url-stories')"
           ></v-switch>
         </v-row>
         <v-row v-for="article in articles" :key="article.id" justify="center">

@@ -33,6 +33,60 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    [
+      '@nuxtjs/i18n',
+      {
+        locales: [
+          {
+            name: 'English',
+            code: 'en',
+            file: 'en.json',
+          },
+          {
+            name: 'Español',
+            code: 'es',
+            file: 'es.json',
+          },
+        ],
+        defaultLocale: 'en',
+        lazy: true,
+        langDir: 'locales/',
+        vueI18n: {
+          dateTimeFormats: {
+            en: {
+              short: {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+              },
+              long: {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long',
+                hour: 'numeric',
+                minute: 'numeric',
+              },
+            },
+            es: {
+              short: {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+              },
+              long: {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long',
+                hour: 'numeric',
+                minute: 'numeric',
+              },
+            },
+          },
+        },
+      },
+    ],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules

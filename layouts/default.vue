@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar :clipped-left="clipped" fixed app>
-      <v-toolbar-title>Hacker News</v-toolbar-title>
+      <v-toolbar-title>{{ $t('global.title') }}</v-toolbar-title>
     </v-app-bar>
     <v-main>
       <v-container>

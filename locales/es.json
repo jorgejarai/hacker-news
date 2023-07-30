@@ -1,0 +1,30 @@
+{
+  "global": {
+    "title": "Hacker News"
+  },
+  "index": {
+    "title": "Hacker News",
+    "show-no-url-stories": "Mostrar historias sin URL",
+    "article-card": {
+      "author-text": "Por {author}",
+      "time-text": "hace {time}",
+      "learn-more": "Ver más",
+      "link": "Enlace: {link}",
+      "visit-page": "Visitar página",
+      "ok": "OK",
+      "no-title": "(Sin título)",
+      "no-comment": "(Sin comentario)",
+      "no-author": "(sin autor)"
+    }
+  },
+  "units": {
+    "seconds": "1 segundo | {n} segundos",
+    "minutes": "1 minuto | {n} minutos",
+    "hours": "1 hora | {n} horas"
+  },
+  "error-page": {
+    "page-not-found": "Página no encontrada",
+    "generic-error": "Ha ocurrido un error",
+    "go-to-home": "Ir a la página de inicio"
+  }
+}
