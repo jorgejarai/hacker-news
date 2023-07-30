@@ -4,7 +4,10 @@
       <span class="text-h5 text--primary">
         {{ title }}
       </span>
-      <p>By {{ author }} - {{ timeSinceCreation }}</p>
+      <p>
+        By {{ author }} -
+        <span :title="prettyCreatedAt">{{ timeSinceCreation }}</span>
+      </p>
       <p v-if="!!storyUrl">
         Link: <a :href="storyUrl">{{ storyUrl }}</a>
       </p>
@@ -23,7 +26,10 @@
           </v-card-title>
 
           <v-card-text>
-            <p>By {{ author }} - {{ timeSinceCreation }}</p>
+            <p>
+              By {{ author }} -
+              <span :title="prettyCreatedAt">{{ timeSinceCreation }}</span>
+            </p>
             <v-chip v-for="tag in tags" :key="tag" class="mr-2">{{
               tag
             }}</v-chip>
@@ -80,6 +86,12 @@ export default {
   computed: {
     timeSinceCreation() {
       return timeDifference(new Date(this.createdAt));
+    },
+    prettyCreatedAt() {
+      return new Date(this.createdAt).toLocaleString('en-US', {
+        dateStyle: 'full',
+        timeStyle: 'long',
+      });
     },
   },
 };
