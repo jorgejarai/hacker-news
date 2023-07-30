@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'IndexPage',
   data() {
@@ -71,24 +73,23 @@ export default {
   methods: {
     async fetchPage() {
       try {
-        const res = await fetch(
+        const { data } = await axios.get(
           `http://localhost:3000/api/stories?page=${
             this.page - 1
           }&showNoUrlStories=${this.showNoUrlStories}`,
         );
-        const response = await res.json();
 
-        if (!response.success) {
-          throw new Error(response.error);
+        if (!data.success) {
+          throw new Error(data.error);
         }
 
-        this.articles = response.hits;
-        this.pageCount = response.pageCount;
-        this.loading = false;
+        this.articles = data.hits;
+        this.pageCount = data.pageCount;
       } catch (err) {
         this.error = true;
-        this.loading = false;
       }
+
+      this.loading = false;
     },
   },
 };
