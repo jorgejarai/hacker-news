@@ -5,6 +5,8 @@
   "index": {
     "title": "Hacker News",
     "show-no-url-stories": "Mostrar historias sin URL",
+    "no-articles": "No hay artículos para mostrar",
+    "fetch-error": "Ha ocurrido un error al obtener los artículos",
     "article-card": {
       "author-text": "Por {author}",
       "time-text": "hace {time}",

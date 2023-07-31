@@ -4,6 +4,8 @@
   },
   "index": {
     "show-no-url-stories": "Show stories with no URL",
+    "no-articles": "No articles to show",
+    "fetch-error": "There was an error fetching the articles",
     "article-card": {
       "author-text": "By {author}",
       "time-text": "{time} ago",

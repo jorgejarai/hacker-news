@@ -16,16 +16,23 @@
             :label="$t('index.show-no-url-stories')"
           ></v-switch>
         </v-row>
-        <v-row v-for="article in articles" :key="article.id" justify="center">
-          <NewsArticle
-            :title="article.title"
-            :author="article.author"
-            :story-url="article.storyUrl"
-            :created-at="article.createdAt"
-            :comment-text="article.commentText"
-            :tags="article.tags"
-          />
-        </v-row>
+        <v-col v-if="articles.length !== 0">
+          <v-row v-for="article in articles" :key="article.id" justify="center">
+            <NewsArticle
+              :title="article.title"
+              :author="article.author"
+              :story-url="article.storyUrl"
+              :created-at="article.createdAt"
+              :comment-text="article.commentText"
+              :tags="article.tags"
+            />
+          </v-row>
+        </v-col>
+        <v-col v-else>
+          <v-alert type="info" class="mx-auto" style="max-width: 600px">{{
+            $t('index.no-articles')
+          }}</v-alert>
+        </v-col>
         <v-row justify="center">
           <v-pagination
             v-model="page"
@@ -36,7 +43,9 @@
         </v-row>
       </v-col>
       <v-col v-else>
-        <v-alert type="error">Error fetching articles</v-alert>
+        <v-alert type="error" class="mx-auto" style="max-width: 600px">
+          {{ $t('index.fetch-error') }}
+        </v-alert>
       </v-col>
     </v-row>
   </v-container>
