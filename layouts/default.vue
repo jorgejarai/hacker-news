@@ -1,7 +1,13 @@
 <template>
   <v-app>
-    <v-app-bar :clipped-left="clipped" fixed app>
-      <v-toolbar-title>{{ $t('global.title') }}</v-toolbar-title>
+    <v-app-bar fixed app>
+      <v-toolbar-title>
+        <NuxtLink
+          class="text--primary text-decoration-none"
+          :to="localePath('/')"
+          >{{ $t('global.title') }}</NuxtLink
+        >
+      </v-toolbar-title>
     </v-app-bar>
     <v-main>
       <v-container>
